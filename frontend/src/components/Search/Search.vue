@@ -1,14 +1,21 @@
 <template>
     <div class="search">
         <form class="search__form" @submit.prevent="search">
-            <input
-                type="text"
-                class="search__field"
-                placeholder="Поиск..."
-                v-model="params.q"
-                @input="search"
-                @change="search"
-            >
+            <div class="search__container">
+                <input
+                    type="text"
+                    class="search__field"
+                    v-model="params.q"
+                    @input="search"
+                    @change="search"
+                >
+                <span
+                    class="search__placeholder"
+                    v-if="params.q === ''"
+                >
+                    Поиск...
+                </span>
+            </div>
             <button class="search__btn" type="submit">Найти</button>
         </form>
     </div>
@@ -27,14 +34,14 @@ export default {
     },
     methods: {
         ...mapMutations([
-            'sortData',
+            'setSortParams',
             'filterData',
             'setCurrentPage'
         ]),
         search () {
             this.setCurrentPage(1)
             this.filterData()
-            this.sortData()
+            this.setSortParams(null)
             updateUrl(this.params)
         }
     }
@@ -45,6 +52,22 @@ export default {
 .search {
     &__form {
         display: flex;
+    }
+
+    &__container {
+        position: relative;
+    }
+
+    &__placeholder {
+        position: absolute;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        padding: 12px 16px;
+        pointer-events: none;
+        color: #525252;
+        transition: all 0.2s ease-in;
     }
 
     &__field {
@@ -58,6 +81,10 @@ export default {
         &:focus {
             border-color: #f0be48;
             border-color: #dcdde0;
+
+            + .search__placeholder {
+                display: none;
+            }
         }
     }
 
