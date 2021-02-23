@@ -7,21 +7,23 @@ const userList = {
         options: {
             apiUrl: 'http://localhost:3000/data/'
         },
-        pagination: {
-            perPage: 3,
-            currentPage: 1
+        params: {
+            q: '',
+            limit: 3,
+            page: 1,
+            "user-id": undefined
         }
     },
     mutations: {
-        filterData: throttle(500, false, (state, params) => {
+        filterData: throttle(500, false, (state) => {
             let result = state.data
                 .filter(item => {
                     return (
-                        item.firstName.toLowerCase().indexOf(params.q) !== -1 ||
-                        item.lastName.toLowerCase().indexOf(params.q) !== -1 ||
-                        item.email.toLowerCase().indexOf(params.q) !== -1 ||
-                        String(item.phone).indexOf(params.q) !== -1 ||
-                        String(item.id).indexOf(params.q) !== -1
+                        item.firstName.toLowerCase().indexOf(state.params.q) !== -1 ||
+                        item.lastName.toLowerCase().indexOf(state.params.q) !== -1 ||
+                        item.email.toLowerCase().indexOf(state.params.q) !== -1 ||
+                        String(item.phone).indexOf(state.params.q) !== -1 ||
+                        String(item.id).indexOf(state.params.q) !== -1
                     )
                 })
 
@@ -32,12 +34,18 @@ const userList = {
             state.list = data
         },
         setCurrentPage (state, pageNumber) {
-            state.pagination.currentPage = pageNumber
+            state.params.page = pageNumber
+        },
+        setCurrentUser (state, userId) {
+            state.params['user-id'] = userId
+        },
+        setParams (state, params) {
+            state.params  = {...state.params, ...params}
         }
     },
     actions: {
         getData({ commit, state }) {
-            fetch(state.options.apiUrl)
+            return fetch(state.options.apiUrl)
                 .then(
                     response => {
                         if (response.ok) {
@@ -54,8 +62,9 @@ const userList = {
                 )
         },
         showMore ({state, commit, getters}) {
-            if (state.pagination.currentPage < getters.total) {
-                const page = state.pagination.currentPage + 1
+            const currentPage = Number(state.params.page)
+            if (currentPage < getters.total) {
+                const page = currentPage + 1
                 commit('setCurrentPage', page)
             }
         }

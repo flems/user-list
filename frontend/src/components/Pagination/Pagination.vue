@@ -5,20 +5,15 @@
 </template>
 
 <script>
+import { updateUrl } from '@/utils/index.js'
+import { mapState } from 'vuex'
+
 export default {
     name: 'pagination',
     props: {
         total: {
             type: Number,
             defaul: 0
-        },
-        currentPage: {
-            type: Number,
-            default: 1
-        },
-        perPage: {
-            type: Number,
-            default: 10
         },
         count: {
             type: Number,
@@ -28,11 +23,15 @@ export default {
     computed: {
         isShown () {
             return this.count < this.total
-        }
+        },
+        ...mapState({
+            params: state => state.userList.params,
+        })
     },
     methods: {
         showMore () {
             this.$emit('showMore')
+            updateUrl(this.params)
         }
     }
 }

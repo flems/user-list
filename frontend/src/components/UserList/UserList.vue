@@ -1,13 +1,12 @@
 <template>
     <div class="user-list">
-        <search @search="search" />
+        <search />
         <custom-table
             :data="list"
             :count="count"
+            @selectRow="selectUser"
         />
         <pagination
-            :currentPage="currentPage"
-            :perPage="perPage"
             :count="count"
             :total="total"
             @showMore="showMore"
@@ -20,6 +19,7 @@ import { mapMutations, mapActions, mapState, mapGetters } from 'vuex'
 import Search from '@/components/Search/Search.vue'
 import CustomTable from '@/components/Table/Table.vue'
 import Pagination from '@/components/Pagination/Pagination.vue'
+import { parseQueryString, updateUrl } from '@/utils/index.js'
 
 export default {
     name: 'user-list',
@@ -30,9 +30,8 @@ export default {
     },
     computed: {
         ...mapState({
-            currentPage: state => state.userList.pagination.currentPage,
-            perPage: state => state.userList.pagination.perPage,
-            list: state => state.userList.list
+            list: state => state.userList.list,
+            params: state => state.userList.params
         }),
         ...mapGetters([
             'count',
@@ -45,16 +44,21 @@ export default {
             'showMore'
         ]),
         ...mapMutations([
-            'filterData',
-            'setCurrentPage'
+            'setCurrentUser',
+            'setParams',
+            'filterData'
         ]),
-        search (params) {
-            this.setCurrentPage(1)
-            this.filterData(params)
+        selectUser (user) {
+            this.setCurrentUser(user.id)
+            updateUrl(this.params)
         }
     },
-    created () {
-        this.getData()
+    async created () {
+        await this.getData()
+        const query = window.location.search.substring(1);
+        const params = parseQueryString(query)
+        this.setParams(params)
+        this.filterData()
     }
 }
 </script>

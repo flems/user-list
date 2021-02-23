@@ -7,6 +7,7 @@
                 placeholder="Поиск..."
                 v-model="params.q"
                 @input="search"
+                @change="search"
             >
             <button type="submit">Отправить</button>
         </form>
@@ -14,18 +15,25 @@
 </template>
 
 <script>
+import { updateUrl } from '@/utils/index.js'
+import { mapMutations, mapActions, mapState, mapGetters } from 'vuex'
+
 export default {
     name: 'search',
-    data () {
-        return {
-            params: {
-                q: ''
-            }
-        }
+    computed: {
+        ...mapState({
+            params: state => state.userList.params
+        })
     },
     methods: {
+        ...mapMutations([
+            'filterData',
+            'setCurrentPage',
+        ]),
         search () {
-            this.$emit('search', this.params)
+            this.setCurrentPage(1)
+            this.filterData()
+            updateUrl(this.params)
         }
     }
 }
