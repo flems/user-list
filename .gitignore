@@ -1,0 +1,4 @@
+/node_modules/
+/.atom-live-server.json
+/yarn.lock
+/htdocs/js
