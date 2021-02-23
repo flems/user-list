@@ -1,13 +1,15 @@
 <template>
     <div class="user-list">
-        <search />
+        <search class="mb-4" />
         <custom-table
             :data="list"
             :count="count"
             @selectRow="selectUser"
             @sort="sort"
+            :sortParams="params.sort"
         />
         <pagination
+            class="mt-4"
             :count="count"
             :total="total"
             @showMore="showMore"
@@ -52,6 +54,7 @@ export default {
             'setSortParams'
         ]),
         selectUser (user) {
+            document.querySelector('body').style.overflow = 'hidden'
             this.setCurrentUser(user.id)
             updateUrl(this.params)
         },

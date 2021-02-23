@@ -9,7 +9,7 @@
                 @input="search"
                 @change="search"
             >
-            <button type="submit">Отправить</button>
+            <button class="search__btn" type="submit">Найти</button>
         </form>
     </div>
 </template>
@@ -42,4 +42,42 @@ export default {
 </script>
 
 <style lang="scss">
+.search {
+    &__form {
+        display: flex;
+    }
+
+    &__field {
+        border: 1px solid #efefef;
+        padding: 12px 16px;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s ease-in;
+        border-right: none;
+
+        &:focus {
+            border-color: #f0be48;
+            border-color: #dcdde0;
+        }
+    }
+
+    &__btn {
+        line-height: 1.5;
+        padding: 12px 24px;
+        cursor: pointer;
+        outline: none;
+        background: #efefef;
+        border: none;
+        color: #4a4a4e;
+        font-size: 13px;
+        transition: background 0.2s ease-in, color 0.2s ease-in;
+        font-weight: 700;
+        text-transform: uppercase;
+
+        &:hover {
+            background: #f0be48;
+            color: #fff;
+        }
+    }
+}
 </style>
