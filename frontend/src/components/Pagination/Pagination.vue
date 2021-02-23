@@ -25,7 +25,7 @@ export default {
             return this.count < this.total
         },
         ...mapState({
-            params: state => state.userList.params,
+            params: state => state.userList.params
         })
     },
     methods: {

@@ -2,37 +2,36 @@ function updateUrl (params) {
     let url = `?`
 
     for (let key in params) {
-        if (params.hasOwnProperty(key) ) {
+        if (params.hasOwnProperty(key)) {
             switch (key) {
-                case 'page':
-                    if (Number(params[key]) !== 1) {
-                        url += `${key}=${params[key]}&`
-                    }
-                    break;
-                case 'q':
-                    if (params[key]) {
-                        url += `${key}=${params[key]}&`
-                    }
-                    break;
-                case 'user-id':
-                    if (params[key]) {
-                        url += `${key}=${params[key]}&`
-                    }
-                    break;
-                case 'sort':
-                    if (params[key].key) {
-                        url += `sort-by=${params[key].key}&`
-                        if (params[key].type !== 'asc') url += `sort-type=${params[key].type}&`
-                    }
-                    break;
-                default:
-                    break
+            case 'page':
+                if (Number(params[key]) !== 1) {
+                    url += `${key}=${params[key]}&`
+                }
+                break
+            case 'q':
+                if (params[key]) {
+                    url += `${key}=${params[key]}&`
+                }
+                break
+            case 'user-id':
+                if (params[key]) {
+                    url += `${key}=${params[key]}&`
+                }
+                break
+            case 'sort':
+                if (params[key].key) {
+                    url += `sort-by=${params[key].key}&`
+                    if (params[key].type !== 'asc') url += `sort-type=${params[key].type}&`
+                }
+                break
+            default:
+                break
             }
-
         }
     }
 
-    url = url.slice(0, url.length - 1);
+    url = url.slice(0, url.length - 1)
     if (url === '') {
         url = location.pathname
     }

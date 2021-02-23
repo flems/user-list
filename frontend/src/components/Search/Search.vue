@@ -16,7 +16,7 @@
 
 <script>
 import { updateUrl } from '@/utils/index.js'
-import { mapMutations, mapActions, mapState, mapGetters } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
     name: 'search',
@@ -28,7 +28,7 @@ export default {
     methods: {
         ...mapMutations([
             'filterData',
-            'setCurrentPage',
+            'setCurrentPage'
         ]),
         search () {
             this.setCurrentPage(1)

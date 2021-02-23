@@ -8,7 +8,7 @@ function parseQueryString (query) {
         const key = decodeURIComponent(pair[0])
         if (pair[1]) value = decodeURIComponent(pair[1])
 
-        if (typeof value === "undefined") continue
+        if (typeof value === 'undefined') continue
         result[key] = decodeURIComponent(value)
     }
 

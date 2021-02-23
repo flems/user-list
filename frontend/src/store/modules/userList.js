@@ -11,7 +11,7 @@ const userList = {
             q: '',
             limit: 3,
             page: 1,
-            "user-id": undefined,
+            'user-id': undefined,
             sort: {
                 key: undefined,
                 type: 'asc'
@@ -34,13 +34,11 @@ const userList = {
             state.list = result
         }),
         sortData: throttle(500, false, (state) => {
-            const key = state.params.sort.key;
-            const type = state.params.sort.type;
-
-            // console.log(type);
+            const key = state.params.sort.key
+            const type = state.params.sort.type
 
             let result = state.list
-                .sort(function(a, b) {
+                .sort(function (a, b) {
                     let result = 0
 
                     if (a[key] > b[key]) {
@@ -59,8 +57,8 @@ const userList = {
                         }
                     }
 
-                    return result;
-                });
+                    return result
+                })
 
             state.list = result
         }),
@@ -85,7 +83,7 @@ const userList = {
                 type: sortType
             }
 
-            state.params  = {...state.params, ...params}
+            state.params = {...state.params, ...params}
         },
         setSortParams (state, key) {
             if (state.params.sort.key === key) {
@@ -97,14 +95,14 @@ const userList = {
         }
     },
     actions: {
-        getData({ commit, state }) {
+        getData ({ commit, state }) {
             return fetch(state.options.apiUrl)
                 .then(
                     response => {
                         if (response.ok) {
-                            return response.json();
+                            return response.json()
                         }
-                        throw new Error('Request failed!');
+                        throw new Error('Request failed!')
                     },
                     networkError => console.log(networkError.message)
                 )

@@ -46,7 +46,7 @@ export default {
             this.setCurrentUser(null)
             updateUrl(this.params)
         }
-    },
+    }
 }
 </script>
 

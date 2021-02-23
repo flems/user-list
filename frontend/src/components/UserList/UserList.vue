@@ -63,7 +63,7 @@ export default {
     },
     async created () {
         await this.getData()
-        const query = window.location.search.substring(1);
+        const query = window.location.search.substring(1)
         const params = parseQueryString(query)
         this.setParams(params)
         this.filterData()

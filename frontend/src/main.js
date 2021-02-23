@@ -10,7 +10,7 @@ import UserDetail from '@/components/UserDetail/UserDetail.vue'
 Vue.component('user-list', UserList)
 Vue.component('user-detail', UserDetail)
 
-
+/* eslint-disable no-new */
 new Vue({
     el: '#app',
     store,
