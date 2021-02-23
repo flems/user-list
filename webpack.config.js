@@ -2,7 +2,6 @@ const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
-    // mode: 'development',
     entry: {
         app: [
             '@babel/polyfill',
@@ -11,38 +10,23 @@ module.exports = {
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, './htdocs/js/'),
+        path: path.resolve(__dirname, './htdocs/js/')
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
-            '@': path.resolve(__dirname, './frontend/src'),
+            '@': path.resolve(__dirname, './frontend/src')
         }
     },
     plugins: [
-        new VueLoaderPlugin(),
+        new VueLoaderPlugin()
     ],
     module: {
         rules: [
             {
                 test: /\.vue$/,
-                loader: 'vue-loader',
-                options: {
-                    exclude: /(node_modules|bower_components)/,
-                    loaders: {
-                        js: [
-                            {
-                                loader: 'babel-loader',
-                                // exclude: /(node_modules|bower_components)/,
-                                options: {
-                                    // cacheDirectory: 'cache',
-                                    presets: ['@babel/preset-env']
-                                }
-                            }
-                        ]
-                    }
-                }
+                loader: 'vue-loader'
             },
             {
                 test: /\.js$/,
@@ -63,12 +47,12 @@ module.exports = {
                 ]
             },
             {
-				test: /\.css$/,
-				use: [
-					'style-loader',
-					'css-loader'
-				]
-			}
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            }
         ]
-    },
+    }
 }
