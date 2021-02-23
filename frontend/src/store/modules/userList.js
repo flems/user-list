@@ -9,7 +9,7 @@ const userList = {
         },
         params: {
             q: '',
-            limit: 3,
+            limit: 5,
             page: 1,
             'user-id': undefined,
             sort: {
@@ -104,7 +104,9 @@ const userList = {
                         }
                         throw new Error('Request failed!')
                     },
-                    networkError => console.log(networkError.message)
+                    networkError => {
+                        throw new Error(networkError.message)
+                    }
                 )
                 .then(
                     jsonResponse => {

@@ -27,12 +27,14 @@ export default {
     },
     methods: {
         ...mapMutations([
+            'sortData',
             'filterData',
             'setCurrentPage'
         ]),
         search () {
             this.setCurrentPage(1)
             this.filterData()
+            this.sortData()
             updateUrl(this.params)
         }
     }
