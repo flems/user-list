@@ -36,7 +36,8 @@
     "vue-loader": "^15.9.6",
     "vue-template-compiler": "^2.6.12",
     "vuex": "^3.6.2",
-    "webpack": "^4.6.0"
+    "webpack": "^4.6.0",
+    "whatwg-fetch": "^3.6.1"
   },
   "devDependencies": {
     "webpack-cli": "^4.5.0"
