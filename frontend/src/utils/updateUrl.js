@@ -19,6 +19,12 @@ function updateUrl (params) {
                         url += `${key}=${params[key]}&`
                     }
                     break;
+                case 'sort':
+                    if (params[key].key) {
+                        url += `sort-by=${params[key].key}&`
+                        if (params[key].type !== 'asc') url += `sort-type=${params[key].type}&`
+                    }
+                    break;
                 default:
                     break
             }

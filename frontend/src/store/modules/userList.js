@@ -11,7 +11,11 @@ const userList = {
             q: '',
             limit: 3,
             page: 1,
-            "user-id": undefined
+            "user-id": undefined,
+            sort: {
+                key: undefined,
+                type: 'asc'
+            }
         }
     },
     mutations: {
@@ -29,6 +33,37 @@ const userList = {
 
             state.list = result
         }),
+        sortData: throttle(500, false, (state) => {
+            const key = state.params.sort.key;
+            const type = state.params.sort.type;
+
+            // console.log(type);
+
+            let result = state.list
+                .sort(function(a, b) {
+                    let result = 0
+
+                    if (a[key] > b[key]) {
+                        if (type === 'asc') {
+                            result = 1
+                        } else {
+                            result = -1
+                        }
+                    }
+
+                    if (a[key] < b[key]) {
+                        if (type === 'asc') {
+                            result = -1
+                        } else {
+                            result = 1
+                        }
+                    }
+
+                    return result;
+                });
+
+            state.list = result
+        }),
         setData (state, data) {
             state.data = data
             state.list = data
@@ -40,7 +75,25 @@ const userList = {
             state.params['user-id'] = userId
         },
         setParams (state, params) {
+            const sortKey = params['sort-by'] ? params['sort-by'] : null
+            const sortType = params['sort-type'] ? params['sort-type'] : 'asc'
+            delete params['sort-type']
+            delete params['sort-by']
+
+            params.sort = {
+                key: sortKey,
+                type: sortType
+            }
+
             state.params  = {...state.params, ...params}
+        },
+        setSortParams (state, key) {
+            if (state.params.sort.key === key) {
+                state.params.sort.type === 'asc' ? state.params.sort.type = 'desc' : state.params.sort.type = 'asc'
+            } else {
+                state.params.sort.key = key
+                state.params.sort.type = 'asc'
+            }
         }
     },
     actions: {

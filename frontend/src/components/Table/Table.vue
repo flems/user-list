@@ -3,11 +3,11 @@
         <table class="table-vue__table" v-if="data && data.length">
             <thead class="table-vue__head">
                 <tr>
-                    <th class="table-vue__cell">id</th>
-                    <th class="table-vue__cell">firstName</th>
-                    <th class="table-vue__cell">lastName</th>
-                    <th class="table-vue__cell">email</th>
-                    <th class="table-vue__cell">phone</th>
+                    <th class="table-vue__cell table-vue__cell--head" @click="sort('id')">id</th>
+                    <th class="table-vue__cell table-vue__cell--head" @click="sort('firstName')">firstName</th>
+                    <th class="table-vue__cell table-vue__cell--head" @click="sort('lastName')">lastName</th>
+                    <th class="table-vue__cell table-vue__cell--head" @click="sort('email')">email</th>
+                    <th class="table-vue__cell table-vue__cell--head" @click="sort('phone')">phone</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,6 +50,9 @@ export default {
     methods: {
         selectRow (item) {
             this.$emit('selectRow', item)
+        },
+        sort (key) {
+            this.$emit('sort', key)
         }
     }
 }
@@ -69,6 +72,39 @@ export default {
 
     &__cell {
         padding: 8px 16px;
+        position: relative;
+
+        &--head {
+            cursor: pointer;
+
+            &:hover {
+                background: #ccc;
+            }
+
+            &:after,
+            &:before {
+                content: '';
+                width: 0;
+                height: 0;
+                border-style: solid;
+                position: absolute;
+                right: 16px;
+                top: 40%;
+                opacity: 0.1;
+            }
+
+            &:before {
+                border-color: transparent transparent #000 transparent;
+                border-width: 0 6px 6px 6px;
+                transform: translateY(-80%);
+            }
+
+            &:after {
+                border-width: 6px 6px 0 6px;
+                border-color: #000 transparent transparent transparent;
+                transform: translateY(80%);
+            }
+        }
     }
 
     &__row {

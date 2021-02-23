@@ -5,6 +5,7 @@
             :data="list"
             :count="count"
             @selectRow="selectUser"
+            @sort="sort"
         />
         <pagination
             :count="count"
@@ -46,10 +47,17 @@ export default {
         ...mapMutations([
             'setCurrentUser',
             'setParams',
-            'filterData'
+            'filterData',
+            'sortData',
+            'setSortParams'
         ]),
         selectUser (user) {
             this.setCurrentUser(user.id)
+            updateUrl(this.params)
+        },
+        sort (key) {
+            this.setSortParams(key)
+            this.sortData()
             updateUrl(this.params)
         }
     },
@@ -59,6 +67,7 @@ export default {
         const params = parseQueryString(query)
         this.setParams(params)
         this.filterData()
+        this.sortData()
     }
 }
 </script>
