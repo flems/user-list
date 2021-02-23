@@ -29,7 +29,7 @@
                         <td class="table-vue__cell">{{ item.firstName }}</td>
                         <td class="table-vue__cell">{{ item.lastName }}</td>
                         <td class="table-vue__cell">{{ item.email }}</td>
-                        <td class="table-vue__cell">{{ item.phone }}</td>
+                        <td class="table-vue__cell">{{ formatPhone(item.phone) }}</td>
                     </tr>
                 </template>
             </tbody>
@@ -96,6 +96,24 @@ export default {
         getClass (key) {
             if (this.sortParams.key !== key) return ''
             return `table-vue__cell--sorted-${this.sortParams.type}`
+        },
+        formatPhone (number) {
+            let clearNumber = number.replace(/\(|\)|\+|-/g, '')
+            if (!isNaN(clearNumber) && clearNumber.length !== 11) return number
+
+            let result = ''
+            result += '+'
+            result += clearNumber.slice(0, 1)
+            result += ' ('
+            result += clearNumber.slice(1, 4)
+            result += ') '
+            result += clearNumber.slice(4, 7)
+            result += '-'
+            result += clearNumber.slice(7, 9)
+            result += '-'
+            result += clearNumber.slice(9, 11)
+
+            return result
         }
     }
 }
