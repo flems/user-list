@@ -40,8 +40,15 @@ const userList = {
             let result = state.list
                 .sort(function (a, b) {
                     let result = 0
+                    let first = a[key]
+                    let second = b[key]
 
-                    if (a[key] > b[key]) {
+                    if (key === 'phone') {
+                        first = first.replace(/\(|\)|\+|-/g, '')
+                        second = second.replace(/\(|\)|\+|-/g, '')
+                    }
+
+                    if (first > second) {
                         if (type === 'asc') {
                             result = 1
                         } else {
@@ -49,7 +56,7 @@ const userList = {
                         }
                     }
 
-                    if (a[key] < b[key]) {
+                    if (first < second) {
                         if (type === 'asc') {
                             result = -1
                         } else {
