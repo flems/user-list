@@ -23,9 +23,9 @@ const userList = {
             let result = state.data
                 .filter(item => {
                     return (
-                        item.firstName.toLowerCase().indexOf(state.params.q) !== -1 ||
-                        item.lastName.toLowerCase().indexOf(state.params.q) !== -1 ||
-                        item.email.toLowerCase().indexOf(state.params.q) !== -1 ||
+                        item.firstName.toLowerCase().indexOf(state.params.q.toLowerCase()) !== -1 ||
+                        item.lastName.toLowerCase().indexOf(state.params.q.toLowerCase()) !== -1 ||
+                        item.email.toLowerCase().indexOf(state.params.q.toLowerCase()) !== -1 ||
                         String(item.phone).indexOf(state.params.q) !== -1 ||
                         String(item.id).indexOf(state.params.q) !== -1
                     )
